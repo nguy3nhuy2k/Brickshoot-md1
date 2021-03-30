@@ -23,45 +23,16 @@ function blockBrick(){
 
 }
 
-function moveball() {
+function moveball()  {
     if (ballx + balldx < ballradius || ballx + balldx > c.width - ballradius) {
         balldx = -balldx;
     }
-    if (bally + balldy < ballradius) {
+    if (bally + balldy < ballradius || bally + balldy > c.height -ballradius) {
         balldy = -balldy;
-    }else if(bally + balldy > c.height-ballradius) {
-        if(ballx > blockX && ballx < blockX + blockwidth) {
-            balldy = -balldy;
-        }
-        else {
-            live--;
-            if(!live) {
-                alert("GAME OVER");
-                document.location.reload();
-            }
-            else {
-                ballx = c.width/2;
-                bally = c.height-30;
-                balldx = 3;
-                balldy = -3;
-                blockX = (c.width-blockwidth)/2;
-            }
-        }
     }
 }
 
-let score = 0;
-let live = 3;
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 5, 15);
-}
-function drawLive() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+ live, c.width-70, 15);
-}
+
 
 function draw(){
     ctx.clearRect(0,0,c.width,c.height);
@@ -71,8 +42,6 @@ function draw(){
 
 
 
-    drawScore();
-    drawLive();
     brickCollisionBall();
     moveball();
 

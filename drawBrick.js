@@ -24,7 +24,6 @@ function brickCollisionBall() {
                 if(  ballx >= b.x && ballx <= b.x + brickWidth && bally + ballradius >= b.y &&
                     bally - ballradius <=b.y + brickHeight){
                     balldy = -balldy;
-                    score++;
                     b.statust= false;
                 }
             }else{
@@ -37,17 +36,15 @@ function drawBrick() {
     for (let i = 0; i < brickCol; i++) {
         for (let j = 0; j <  brickRow; j++) {
 
-                let brickX = OffsetLeft + (i*(brickWidth+brickPadding));
-                let brickY = OffsetTop + (j*(brickHeight+brickPadding));
-                brickList[i][j].x = brickX;
-                brickList[i][j].y = brickY;
-                    ctx.beginPath();
-                    ctx.fillRect( brickX,brickY,brickWidth, brickHeight);
-                    ctx.fillStyle = "#0095DD";
-                    ctx.fill();
-                    ctx.closePath();
-
-
+                        let brickX = OffsetLeft + (i*(brickWidth+brickPadding));
+                        let brickY = OffsetTop + (j*(brickHeight+brickPadding));
+                        brickList[i][j].x = brickX;
+                        brickList[i][j].y = brickY;
+                        ctx.beginPath();
+                        ctx.fillRect( brickX,brickY,brickWidth, brickHeight);
+                        ctx.fillStyle = "#0095DD";
+                        ctx.fill();
+                        ctx.closePath();
         }
     }
 }
