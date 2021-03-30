@@ -1,9 +1,10 @@
 let c = document.getElementById('myCanvas');
 let ctx = c.getContext('2d');
 let ballradius=10;
-let ballx=20,bally=20;
+let ballx=c.width/2;
+let bally=c.height -30 ;
 let balldx=2;
-let balldy=3;
+let balldy=-3;
 let blockwidth=70;
 let blockheight=10;
 let blockX=(c.width - blockwidth)/2;
@@ -17,21 +18,38 @@ function drawball(){
 
 function blockBrick(){
     ctx.fillStyle='#ff0000';
-    ctx.rect(blockX,c.height-blockheight,blockwidth,blockheight)
-    ctx.fill();
+    ctx.fillRect(blockX,c.height-blockheight,blockwidth,blockheight)
     ctx.beginPath();
 
 }
 
-function moveball(){
-    if(ballx + balldx < ballradius || ballx + balldx> c.width - ballradius){
-        balldx = - balldx;
+function moveball() {
+    if (ballx + balldx < ballradius || ballx + balldx > c.width - ballradius) {
+        balldx = -balldx;
     }
-    if(bally + balldy < ballradius || bally + balldy > c.height - ballradius){
+    if (bally + balldy < ballradius) {
         balldy = -balldy;
+    }else if(bally + balldy > c.height-ballradius) {
+        if(ballx > blockX && ballx < blockX + blockwidth) {
+            balldy = -balldy;
+        }
+        else {
+            live--;
+            if(!live) {
+                alert("GAME OVER");
+                document.location.reload();
+            }
+            else {
+                ballx = c.width/2;
+                bally = c.height-30;
+                balldx = 3;
+                balldy = -3;
+                blockX = (c.width-blockwidth)/2;
+            }
+        }
     }
-
 }
+
 let score = 0;
 let live = 3;
 function drawScore() {
@@ -51,35 +69,14 @@ function draw(){
     drawball();
     blockBrick();
 
+
+
     drawScore();
     drawLive();
     brickCollisionBall();
     moveball();
-    if(ballx + balldx > c.width-ballradius || ballx + balldx < ballradius) {
-        balldx = -balldx;
-    }
-    if(bally + balldy < ballradius) {
-        balldy = -balldy;
-    }
-    else if(bally + balldy > c.height-ballradius) {
-        if(ballx > blockX && ballx < blockX + blockwidth) {
-            balldy = -balldy;
-        }
-        else {
-            live--;
-            if(!live) {
-                alert("GAME OVER");
-                document.location.reload();
-            }
-            else {
-                ballx = c.width/2;
-                bally = c.height-30;
-                balldx = 3;
-                balldy = -3;
-                blockX = (c.width-blockwidth)/2;
-            }
-        }
-    }
+
+
     speedBlock();
 
     ballx += balldx;
@@ -87,5 +84,4 @@ function draw(){
 
 }
 
-setInterval(draw,10)
-draw();
+setInterval(draw,10);
